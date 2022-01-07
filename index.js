@@ -1,10 +1,13 @@
 const express = require("express");
 const axios = require("axios");
 const { config } = require("dotenv");
+const cors = require("cors");
+
 config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 const newsApi = process.env.NEWS_API;
 
