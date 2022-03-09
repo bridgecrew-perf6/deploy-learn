@@ -19,7 +19,7 @@ app.get("/", async (req, res) => {
 
 app.get("/harshit", async (req, res) => {
   const data = await axios.get(
-    `${newsApiHarshit}&category=${req.params.category}`
+    `${newsApiHarshit}&category=${req.query.category}`
   );
   res.json({ data: data.data.articles });
 });
