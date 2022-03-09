@@ -10,7 +10,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 const newsApi = process.env.NEWS_API;
-const newsApiHarshit = process.env.NEWS_API;
+const newsApiHarshit = process.env.NEWS_API_HARSHIT;
 
 app.get("/", async (req, res) => {
   const data = await axios.get(newsApi);
@@ -18,10 +18,15 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/harshit", async (req, res) => {
-  const data = await axios.get(
-    `${newsApiHarshit}&category=${req.query.category}`
-  );
-  res.json({ data: data.data.articles });
+  try {
+    const data = await axios.get(
+      `${newsApiHarshit}&category=${req.query.category}`
+    );
+    res.json({ articles: data.data.articles });
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
 });
 
 app.listen(process.env.PORT, () => {
